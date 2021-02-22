@@ -3,7 +3,7 @@
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3
-APPS_DIR = ROOT_DIR.path('switch')
+APPS_DIR = ROOT_DIR.path('dummy')
 
 env = environ.Env()
 
@@ -46,7 +46,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
-    'switch.users.apps.UsersAppConfig',
+    'dummy.users.apps.UsersAppConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -144,7 +144,7 @@ ADMINS = [
 MANAGERS = ADMINS
 
 # Celery
-INSTALLED_APPS += ['switch.taskapp.celery.CeleryAppConfig']
+INSTALLED_APPS += ['dummy.taskapp.celery.CeleryAppConfig']
 if USE_TZ:
     CELERY_TIMEZONE = TIME_ZONE
 CELERY_BROKER_URL = env('CELERY_BROKER_URL')

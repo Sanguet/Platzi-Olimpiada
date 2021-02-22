@@ -3,10 +3,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Utils
-from switch.utils.models import StockModel
+from dummy.utils.models import UtilModel
 
 
-class User(StockModel, AbstractUser):
+class User(UtilModel, AbstractUser):
     """ Modelo de usuario
 
     Extiende del modelo StockModel y AbstractUser,
@@ -16,20 +16,6 @@ class User(StockModel, AbstractUser):
         unique=True,
         error_messages={
             "unique": "Ya existe un usuario con este email"
-        }
-    )
-
-    company_name = models.CharField(
-        "Nombre de la compañia",
-        max_length=140,
-    )
-
-    company_slug_name = models.SlugField(
-        "Nombre de pila de la compañia",
-        unique=True,
-        max_length=40,
-        error_messages={
-            "unique": "Ya existe un usuario con este nombre de compañia"
         }
     )
 
@@ -62,11 +48,4 @@ class User(StockModel, AbstractUser):
         null=True
     )
 
-    is_admin = models.BooleanField(
-        "Admin",
-        default=True,
-        help_text="Solo hay un admin"
-    )
-
-    REQUIRED_FIELDS = ["email", "company_name", "company_slug_name"]
-
+    REQUIRED_FIELDS = ["email"]
