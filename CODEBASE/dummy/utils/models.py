@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class StockModel(models.Model):
+class UtilModel(models.Model):
     """ Modelo basico abstracto.
 
     StockModel  es una clase abstracta de la que heredan
@@ -62,14 +62,6 @@ class ManagementModel(models.Model):
         "modified at",
         auto_now=True,
         help_text="Date Time de la ultima modificacion del objeto"
-    )
-
-    modified_by = models.ForeignKey(
-        "users.Profile",
-        on_delete=models.SET_NULL,
-        null=True, blank=True,
-        verbose_name='Usuario de creación',
-        help_text="Quien fue el que lo modifico"
     )
 
     is_active = models.BooleanField(

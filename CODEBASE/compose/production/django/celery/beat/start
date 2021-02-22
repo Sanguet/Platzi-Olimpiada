@@ -5,4 +5,4 @@ set -o pipefail
 set -o nounset
 
 
-celery -A switch.taskapp beat -l INFO
+celery -A dummy.taskapp beat -l INFO
