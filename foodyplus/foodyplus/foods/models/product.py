@@ -77,7 +77,7 @@ class Product(BasicModel):
 
     picture = models.ImageField(
         "imagen del producto",
-        upload_to="management/pictures/",
+        upload_to="foods/pictures/",
         blank=True,
         null=True
     )

@@ -13,6 +13,7 @@ class ProductCategory(BasicModel):
 
     name = models.CharField(
         "Nombre de la categoria",
+        unique=True,
         max_length=100
     )
 
