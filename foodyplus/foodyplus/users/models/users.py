@@ -1,6 +1,7 @@
 # Django
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 
 # Utils
 from foodyplus.utils.models import BasicModel
@@ -17,6 +18,17 @@ class User(BasicModel, AbstractUser):
         error_messages={
             "unique": "Ya existe un usuario con este email"
         }
+    )
+
+    phone_regex = RegexValidator(
+        regex=r"\+?1?\d{9,15}$",
+        message="El numero de celular tiene que tener el formato: +999999999. Hasta 15 digitos"
+    )
+
+    phone_number = models.CharField(
+        validators=[phone_regex],
+        max_length=17,
+        blank=True
     )
 
     is_verified = models.BooleanField(
@@ -48,4 +60,5 @@ class User(BasicModel, AbstractUser):
         null=True
     )
 
-    REQUIRED_FIELDS = ["email"]
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username", ]

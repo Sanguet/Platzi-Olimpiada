@@ -25,6 +25,8 @@ class UserModelSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class."""
 
+        email = serializers.CharField()
+
         model = User
         fields = (
             'id',
@@ -39,12 +41,10 @@ class UserModelSerializer(serializers.ModelSerializer):
         """Creacion de un usuario por medio de un admin"""
         # Creamos los ultimos datos necesarios para el new_user
         password = SucesionAleatoria()
-        username = 'foodyplus' + str(SucesionAleatoria())
 
         # Creacion del usuario
         new_user = User.objects.create_user(
             email=data['email'],
-            username=username,
             password=password,
             is_verified=False
         )
@@ -61,12 +61,12 @@ class UserLoginSerializer(serializers.Serializer):
     Funcionamiento del login de usuario
     """
 
-    username = serializers.CharField(min_length=2)
+    email = serializers.CharField(min_length=2)
     password = serializers.CharField(min_length=8, max_length=64)
 
     def validate(self, data):
         """Check credentials."""
-        user = authenticate(username=data['username'], password=data['password'])
+        user = authenticate(username=data['email'], password=data['password'])
         if not user:
             raise serializers.ValidationError(
                 '1001: Error al iniciar sesion, credenciales invalidas o cuenta deshabilitada'
@@ -93,15 +93,26 @@ class UserSignUpSerializer(serializers.Serializer):
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
 
+    new_password = serializers.CharField(min_length=8)
+    new_password_confirmation = serializers.CharField(min_length=8)
+
+    def validate(self, data):
+        """Validamos las nuevas contraseñas"""
+        passw = data['new_password']
+        passw_conf = data['new_password_confirmation']
+
+        if passw != passw_conf:
+            raise serializers.ValidationError("1021: Las contraseñas no concuerdan")
+
+        self.context['password'] = data['new_password']
+        return data
+
     def create(self, data):
         """Creacion de la cuenta principal y usuario admin"""
         # User
-        password = SucesionAleatoria()
-        self.context['password'] = password
-        username = 'foodyplus' + str(SucesionAleatoria())
+        password = self.context['password']
         user = User.objects.create_user(
             email=data['email'],
-            username=username,
             password=password,
             is_verified=False
         )
@@ -109,14 +120,6 @@ class UserSignUpSerializer(serializers.Serializer):
         send_confirmation_email.delay(user_pk=user.pk, password=self.context['password'])
 
         return user
-
-
-def SucesionAleatoria():
-    CODE_LENGTH = 13
-    pool = ascii_uppercase + digits
-    code = random.choices(pool, k=CODE_LENGTH)
-    code = "".join(code)
-    return code
 
 
 class AccountVerificationSerializer(serializers.Serializer):
