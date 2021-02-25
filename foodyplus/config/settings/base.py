@@ -53,6 +53,7 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'foodyplus.users.apps.UsersAppConfig',
+    'foodyplus.foods.apps.FoodsAppConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

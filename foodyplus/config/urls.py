@@ -9,5 +9,7 @@ urlpatterns = [
     # Django Admin
     path(settings.ADMIN_URL, admin.site.urls),
     path('', include(('foodyplus.users.urls', 'users'), namespace='users')),
+    path('', include(('foodyplus.foods.urls', 'foods'), namespace='foods')),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
