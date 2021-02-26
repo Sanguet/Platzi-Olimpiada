@@ -5,7 +5,7 @@ from django.db import models
 from foodyplus.utils.models import BasicModel
 
 
-class Profile(BasicModel):
+class ShippingInfo(BasicModel):
     """Modelo del perfil
 
     El modelo del perfil contiene su data publica, como biografia, imagen y estadistica
