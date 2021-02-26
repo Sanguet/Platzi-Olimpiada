@@ -11,16 +11,14 @@ from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated
 )
-from foodyplus.users.permissions import IsAccountOwner
+from foodyplus.users.permissions import IsAccountOwner, IsUserAdmin
 
 # Serializers
 from foodyplus.users.serializers import (
     UserLoginSerializer,
     UserModelSerializer,
     UserSignUpSerializer,
-    AccountVerificationSerializer,
     ProfileModelSerializer,
-    ChangePasswordSerializer,
     EmailPasswordSerializer,
     ResetPasswordSerializer
 )
@@ -35,8 +33,6 @@ from foodyplus.users.models import User, Profile
 
 class UserViewSet(mixins.RetrieveModelMixin,
                   mixins.ListModelMixin,
-                  mixins.CreateModelMixin,
-                  mixins.UpdateModelMixin,
                   mixins.DestroyModelMixin,
                   viewsets.GenericViewSet):
     """User login API view."""
@@ -46,24 +42,22 @@ class UserViewSet(mixins.RetrieveModelMixin,
 
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
-    search_fields = ('username', 'email', 'is_verified',
+    search_fields = ('username', 'email',
                      'is_active')
-    ordering_fields = ('username', 'email', 'is_verified',
+    ordering_fields = ('username', 'email',
                        'is_active')
     ordering = ()
-    filter_fields = ('username', 'email', 'is_verified',
+    filter_fields = ('username', 'email',
                      'is_active')
 
     def get_permissions(self):
         """Asigna permisos dependiendo de la accion"""
-        if self.action in ['signup', 'login', 'verify', 'email_password', 'reset_password']:
+        if self.action in ['signup', 'login', 'email_password', 'reset_password']:
             permissions = [AllowAny]
         elif self.action in ['retrieve', 'update', 'partial_update', 'destroy']:
-            permissions = [IsAuthenticated]
-        elif self.action in ['create', 'list']:
-            permissions = [IsAuthenticated]
-        elif self.action in ['change_password']:
-            permissions = [IsAuthenticated]
+            permissions = [IsAuthenticated, IsAccountOwner]
+        elif self.action in ['list']:
+            permissions = [IsAuthenticated, IsUserAdmin]
         else:
             permissions = [IsAuthenticated]
         return [p() for p in permissions]
@@ -94,27 +88,6 @@ class UserViewSet(mixins.RetrieveModelMixin,
         user = serializer.save()
         data = UserModelSerializer(user).data
         return Response(data, status=status.HTTP_201_CREATED)
-
-    @action(detail=False, methods=["post"])
-    def verify(self, request):
-        """Account verification API view."""
-        serializer = AccountVerificationSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        data = {'message': 'Congratulation, now go to management!'}
-        return Response(data, status=status.HTTP_200_OK)
-
-    @action(detail=False, methods=["post"])
-    def change_password(self, request):
-        """Account verification API view."""
-        serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        password = serializer.save()
-        data = {
-            'message': 'Felicidades, la contraseña a sido cambiada con exito!',
-            'Tu nueva contraseña es': password
-        }
-        return Response(data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["post"])
     def email_password(self, request):

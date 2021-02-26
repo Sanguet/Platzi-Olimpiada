@@ -24,10 +24,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
-    search_fields = ('first_name', 'last_name', 'points')
-    ordering_fields = ('first_name', 'last_name', 'points')
+    search_fields = ()
+    ordering_fields = ()
     ordering = ()
-    filter_fields = ('first_name', 'last_name', 'points')
+    filter_fields = ()
 
     def get_queryset(self):
         queryset = Profile.objects.all()

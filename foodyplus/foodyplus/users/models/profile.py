@@ -26,7 +26,4 @@ class Profile(BasicModel):
 
     def __str__(self):
         """Regresa el nombre del perfil"""
-        if self.first_name is None:
-            return f'No hay nombre de perfil para el usuario: {self.user} '
-        else:
-            return self.first_name
+        return f'No hay nombre de perfil para el usuario: {self.user} '

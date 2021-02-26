@@ -3,13 +3,23 @@ from rest_framework.permissions import BasePermission
 
 
 class IsAccountOwner(BasePermission):
-    """Permite el acceso del objeto solo al dueño o al admin"""
-    message = '1101: Solo el administrador de la cuenta tiene permiso para ejecutar esta accion'
+    """Permite el acceso del objeto solo al dueño o el admin"""
+    message = '1101: Solo el usuario o admin tienen permiso'
 
     def has_object_permission(self, request, view, obj):
-        """Checkea que el usuario sea igual al objeto o que sea admin"""
+        """Checkea que el usuario sea igual al objeto"""
         user = request.user
-        return (user.work_range == 'A' or user.account == obj.account)
+        return (user == obj or user.account_type == "A")
+
+
+class IsUserAdmin(BasePermission):
+    """Permite el acceso al admin"""
+    message = '1103: Solo el administrador de la cuenta tiene permiso para ejecutar esta accion'
+
+    def has_permission(self, request, view):
+        """Solo le damos permiso al admin"""
+        user = request.user
+        return user.account_type == "A"
 
 
 class IsThisOwner(BasePermission):

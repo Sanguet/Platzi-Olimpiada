@@ -14,11 +14,10 @@ class ProfileModelSerializer(serializers.ModelSerializer):
         model = Profile
         fields = (
             'id',
-            'first_name', 'last_name',
             'picture',
-            'biografy', 'points',
+            'biografy'
         )
 
         read_only_fields = (
-            'points', 'id'
+            'id',
         )

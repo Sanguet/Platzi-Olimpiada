@@ -53,4 +53,4 @@ class User(BasicModel, AbstractUser):
     )
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", '']
+    REQUIRED_FIELDS = ["username", ]
