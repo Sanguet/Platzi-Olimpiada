@@ -11,7 +11,12 @@ class ShippingInfo(BasicModel):
     El modelo del perfil contiene su data publica, como biografia, imagen y estadistica
     """
 
-    user = models.OneToOneField("users.User", on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        "users.User",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
 
     first_name = models.CharField(
         "Nombre del perfil",

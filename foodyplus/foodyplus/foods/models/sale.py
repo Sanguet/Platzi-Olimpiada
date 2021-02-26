@@ -2,14 +2,21 @@
 from django.db import models
 
 # Utils
-from foodyplus.utils.models import BasicUserModel
+from foodyplus.utils.models import BasicModel
 
 
-class Sale(BasicUserModel):
+class Sale(BasicModel):
     """ Modelo de Venta
 
     Extiende de BasicUserModel para las metricas y usuario
     """
+
+    user = models.OneToOneField(
+        "users.User",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
 
     coupon = models.ForeignKey(
         "Coupon",
