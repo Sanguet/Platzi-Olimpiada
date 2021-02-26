@@ -8,14 +8,19 @@ from foodyplus.utils.models import BasicModel
 class Sale(BasicModel):
     """ Modelo de Venta
 
-    Extiende de BasicUserModel para las metricas y usuario
+    Extiende de BasicModel para las metricas
     """
 
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         "users.User",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True
+    )
+
+    shipping_info = models.ForeignKey(
+        "users.ShippingInfo",
+        on_delete=models.CASCADE,
     )
 
     coupon = models.ForeignKey(

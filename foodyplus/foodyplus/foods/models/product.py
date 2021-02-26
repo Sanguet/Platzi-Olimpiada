@@ -88,6 +88,13 @@ class Product(BasicModel):
         default=0
     )
 
+    unit = models.CharField(
+        "Unidad de venta",
+        max_length=10,
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
         """Regresa el nombre del producto"""
         return self.name

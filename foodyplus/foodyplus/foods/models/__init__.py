@@ -7,3 +7,5 @@ from .coupon import *
 from .sale import *
 from .sale_detail import *
 from .wish_list import *
+from .label import *
+from .recipe_label import *

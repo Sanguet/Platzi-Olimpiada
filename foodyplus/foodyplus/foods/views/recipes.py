@@ -23,10 +23,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
     search_fields = ('recipe_category', 'description', 'name', 'video', 'utensils',
-                     'country', 'total_time', 'likes', 'portions')
+                     'country', 'total_time', 'likes', 'portions', 'label')
     ordering = ('country', 'total_time', 'likes', 'portions')
     filter_fields = ('recipe_category', 'description', 'name', 'video', 'utensils',
-                     'country', 'total_time', 'likes', 'portions')
+                     'country', 'total_time', 'likes', 'portions', 'label')
 
     def get_permissions(self):
         """Asignamos los permisos en base a las acciones."""

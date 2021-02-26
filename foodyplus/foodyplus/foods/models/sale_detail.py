@@ -39,5 +39,5 @@ class SaleDetail(BasicModel):
     )
 
     def __str__(self):
-        """Regresa la numero de venta y el producto"""
+        """Regresa el id del detalle"""
         return str(self.pk)

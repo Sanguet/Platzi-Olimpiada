@@ -23,6 +23,12 @@ class Recipe(BasicModel):
         through_fields=("recipe", "product")
     )
 
+    label = models.ManyToManyField(
+        "Label",
+        through="RecipeLabel",
+        through_fields=("recipe", "label")
+    )
+
     name = models.CharField(
         "Nombre de la receta",
         max_length=100
@@ -68,6 +74,13 @@ class Recipe(BasicModel):
     )
 
     description = models.TextField(
+        'Descripcion de la receta',
+        max_length=700,
+        blank=True,
+        null=True
+    )
+
+    comment = models.TextField(
         'Comentario de la receta',
         max_length=700,
         blank=True,

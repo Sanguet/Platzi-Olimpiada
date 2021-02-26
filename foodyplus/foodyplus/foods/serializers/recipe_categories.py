@@ -19,7 +19,7 @@ class RecipeCategoryModelSerializer(serializers.ModelSerializer):
             'name', 'comment',
         )
         read_only_fields = (
-            'id'
+            'id',
         )
 
     def validate_name(self, data):
