@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 # Model
-from foodyplus.foods.models import Sale, Product, ProductCategory
+from foodyplus.foods.models import Sale, Product, ProductCategory, RecipeCategory
 
 
 class Validators():
@@ -40,3 +40,14 @@ class Validators():
         except ProductCategory.DoesNotExist:
             raise serializers.ValidationError('1036: Categoria del producto no encontrado')
         return product_category
+
+    def recipe_category(pk):
+        """Validador del campo recipe_category
+
+        pk es un String
+        """
+        try:
+            recipe_category = RecipeCategory.objects.get(id=int(pk))
+        except RecipeCategory.DoesNotExist:
+            raise serializers.ValidationError('1036: Categoria de la receta no encontrado')
+        return recipe_category

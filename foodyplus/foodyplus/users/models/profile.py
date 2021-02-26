@@ -13,20 +13,6 @@ class Profile(BasicModel):
 
     user = models.OneToOneField("users.User", on_delete=models.CASCADE)
 
-    first_name = models.CharField(
-        "Nombre del perfil",
-        max_length=30,
-        blank=True,
-        null=True,
-    )
-
-    last_name = models.CharField(
-        "Apellido del perfil",
-        max_length=30,
-        blank=True,
-        null=True
-    )
-
     picture = models.ImageField(
         "imagen de perfil",
         upload_to="users/pictures/",

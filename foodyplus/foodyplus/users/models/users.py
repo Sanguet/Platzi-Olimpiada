@@ -31,12 +31,6 @@ class User(BasicModel, AbstractUser):
         blank=True
     )
 
-    is_verified = models.BooleanField(
-        "Verificado",
-        default=True,
-        help_text="Se setea a True cuando el email es verificado"
-    )
-
     is_active = models.BooleanField(
         "is active",
         default=True,
@@ -45,15 +39,13 @@ class User(BasicModel, AbstractUser):
     )
 
     ACCOUNT_TYPES = (
-        ('G', 'Gratis'),
-        ('I', 'Inicial'),
-        ('A', 'Avanzado'),
-        ('P', 'Premium')
+        ('C', 'Cliente'),
+        ('A', 'Admin'),
     )
 
     account_type = models.CharField(
         "Tipo de cuenta",
-        default="G",
+        default="C",
         max_length=1,
         choices=ACCOUNT_TYPES,
         blank=True,
@@ -61,4 +53,4 @@ class User(BasicModel, AbstractUser):
     )
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", ]
+    REQUIRED_FIELDS = ["username", '']

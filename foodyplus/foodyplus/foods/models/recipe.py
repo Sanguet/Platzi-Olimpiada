@@ -28,13 +28,6 @@ class Recipe(BasicModel):
         max_length=100
     )
 
-    description = models.TextField(
-        'Descripcion de la receta',
-        max_length=700,
-        blank=True,
-        null=True
-    )
-
     video = models.URLField(
         'Link del video de la receta',
         max_length=500,
