@@ -11,6 +11,11 @@ class Coupon(BasicModel):
     Extiende de BasicModel para las metricas
     """
 
+    user = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE
+    )
+
     name = models.CharField(
         "Nombre del producto",
         max_length=100
@@ -18,6 +23,7 @@ class Coupon(BasicModel):
 
     code = models.BigIntegerField(
         "Codigo del cupon",
+        unique=True
     )
 
     discount = models.DecimalField(

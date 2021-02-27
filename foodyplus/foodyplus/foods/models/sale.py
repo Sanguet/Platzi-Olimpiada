@@ -23,11 +23,12 @@ class Sale(BasicModel):
         on_delete=models.CASCADE,
     )
 
-    coupon = models.ForeignKey(
-        "Coupon",
-        on_delete=models.SET_NULL,
+    discount = models.DecimalField(
+        "Descuento del producto",
         blank=True,
-        null=True
+        max_digits=19,
+        decimal_places=2,
+        default=0
     )
 
     detail = models.ManyToManyField(
@@ -37,7 +38,6 @@ class Sale(BasicModel):
     )
 
     PAYMENT_TYPES = (
-        ('G', 'Gratis'),
         ('C', 'Contado'),
         ('D', 'Debito'),
         ('T', 'Credito')
@@ -53,8 +53,12 @@ class Sale(BasicModel):
 
     total = models.DecimalField(
         "Total",
-        blank=True,
-        default=0,
+        max_digits=19,
+        decimal_places=2
+    )
+
+    delivery_charge = models.DecimalField(
+        "Costo de envio",
         max_digits=19,
         decimal_places=2
     )

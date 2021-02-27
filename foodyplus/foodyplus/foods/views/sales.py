@@ -24,12 +24,12 @@ class SaleViewSet(viewsets.ModelViewSet):
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
     search_fields = ('detail', 'payment_method', 'user',
-                     'total', 'comment', 'shipping_info', 'coupon', 'delivery_date', 'steps')
+                     'total', 'comment', 'shipping_info', 'discount', 'delivery_date', 'steps')
     ordering_fields = ('detail', 'payment_method', 'user',
-                       'shipping_info', 'coupon', 'delivery_date', 'steps')
+                       'shipping_info', 'discount', 'delivery_date', 'steps')
     ordering = ()
     filter_fields = ('detail', 'payment_method', 'user',
-                     'total', 'comment', 'shipping_info', 'coupon', 'delivery_date', 'steps')
+                     'total', 'comment', 'shipping_info', 'discount', 'delivery_date', 'steps')
 
     def get_permissions(self):
         """Asignamos los permisos en base a las acciones."""
