@@ -84,7 +84,8 @@ class Sale(BasicModel):
     comment = models.TextField(
         'Comentario de la venta',
         max_length=500,
-        blank=True
+        blank=True,
+        null=True
     )
 
     def __str__(self):

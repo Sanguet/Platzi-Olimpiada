@@ -15,6 +15,7 @@ from .views import sales as sale_views
 from .views import sale_details as sale_details_views
 from .views import coupons as coupons_views
 from .views import recipe_details as recipe_details_views
+from .views import plannings as plannings_views
 
 
 router = DefaultRouter()
@@ -25,6 +26,7 @@ router.register(r'recipes', recipe_views.RecipeViewSet, basename='recipes')
 router.register(r'labels', label_views.LabelViewSet, basename='labels')
 router.register(r'sales', sale_views.SaleViewSet, basename='sale')
 router.register(r'coupons', coupons_views.CouponViewSet, basename='coupon')
+router.register(r'plannings', plannings_views.PlanningViewSet, basename='planning')
 router.register(
     r'recipes/(?P<recipe_pk>\d+)/labels',
     recipe_label_views.RecipeLabelViewSet,

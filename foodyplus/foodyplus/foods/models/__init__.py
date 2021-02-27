@@ -9,3 +9,5 @@ from .sale_detail import *
 from .wish_list import *
 from .label import *
 from .recipe_label import *
+from .planning import *
+from .planning_detail import *

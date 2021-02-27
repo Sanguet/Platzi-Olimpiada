@@ -8,3 +8,4 @@ from .sales import *
 from .sale_details import *
 from .coupons import *
 from .recipe_details import *
+from .plannings import *
