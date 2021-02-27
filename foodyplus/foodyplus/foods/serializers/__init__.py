@@ -5,3 +5,4 @@ from .recipes import *
 from .labels import *
 from .recipe_labels import *
 from .sales import *
+from .sale_details import *

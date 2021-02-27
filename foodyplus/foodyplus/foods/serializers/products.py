@@ -22,14 +22,14 @@ class ProductModelSerializer(serializers.ModelSerializer):
 
         model = Product
         fields = (
-            'id', 'modified_by',
+            'id',
             'product_category',
             'name', 'cost',
             'price', 'stock',
             'provider', 'picture',
-            'state_line', 'barcode',
+            'barcode',
             'comment', 'units_sales',
-            'is_stock', 'description',
+            'description',
             'discount'
 
         )

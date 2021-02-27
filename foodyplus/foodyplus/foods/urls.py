@@ -12,6 +12,7 @@ from .views import recipes as recipe_views
 from .views import labels as label_views
 from .views import recipe_labels as recipe_label_views
 from .views import sales as sale_views
+from .views import sale_details as sale_details_views
 
 
 router = DefaultRouter()
@@ -25,6 +26,11 @@ router.register(
     r'recipes/(?P<recipe_pk>\d+)/labels',
     recipe_label_views.RecipeLabelViewSet,
     basename='recipe_label'
+)
+router.register(
+    r'sales/(?P<sale_pk>\d+)/details',
+    sale_details_views.SaleDetailViewSet,
+    basename='sale_detail'
 )
 
 urlpatterns = [

@@ -32,10 +32,8 @@ class SaleDetail(BasicModel):
 
     sub_total = models.DecimalField(
         "Sub total",
-        blank=True,
         max_digits=19,
         decimal_places=2,
-        default=0
     )
 
     def __str__(self):
