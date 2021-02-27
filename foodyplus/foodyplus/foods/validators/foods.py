@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 # Model
 from foodyplus.foods.models import Sale, Product, ProductCategory, RecipeCategory, Label, Coupon
+from foodyplus.users.models import User
 
 
 class Validators():
@@ -73,3 +74,14 @@ class Validators():
         except Coupon.DoesNotExist:
             raise serializers.ValidationError('1036: Cupon no encontrada')
         return coupon
+
+    def user(username):
+        """Validador del campo user
+
+        username es un String
+        """
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise serializers.ValidationError('1036: Usuario no encontrado')
+        return user

@@ -57,7 +57,7 @@ class RecipeModelSerializer(serializers.ModelSerializer):
 
         return recipe
 
-    def update(self, data, instance):
+    def update(self, instance, data):
         # Validamos que el dato existe, sino lo ponemos como estaba
         try:
             self.context['recipe_category']

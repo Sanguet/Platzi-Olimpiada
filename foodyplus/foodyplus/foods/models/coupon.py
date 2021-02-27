@@ -21,15 +21,14 @@ class Coupon(BasicModel):
         max_length=100
     )
 
-    code = models.BigIntegerField(
+    code = models.CharField(
         "Codigo del cupon",
+        max_length=13,
         unique=True
     )
 
     discount = models.DecimalField(
         "Descuento del cupon",
-        blank=True,
         max_digits=19,
         decimal_places=2,
-        default=0
     )
