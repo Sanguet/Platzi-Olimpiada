@@ -11,7 +11,7 @@ class ShippingInfo(BasicModel):
     El modelo del perfil contiene su data publica, como biografia, imagen y estadistica
     """
 
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         "users.User",
         on_delete=models.SET_NULL,
         blank=True,
