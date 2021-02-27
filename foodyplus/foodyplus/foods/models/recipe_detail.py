@@ -40,7 +40,6 @@ class RecipeDetail(BasicModel):
         "Sub total",
         max_digits=19,
         decimal_places=2,
-        default=0
     )
 
     def __str__(self):
