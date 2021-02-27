@@ -22,24 +22,23 @@ class RecipeLabelModelSerializer(serializers.ModelSerializer):
             'recipe', 'label'
         )
         read_only_fields = (
-            'id',
+            'id', 'recipe'
         )
 
     def validate_label(self, data):
         """Validador individual del label"""
-        user = self.context['request'].user
-        self.context['label'] = Validators.label(pk=data, user=user)
+        self.context['label'] = Validators.label(pk=data)
         return data
 
     def create(self, data):
         """Creacion del label en el receta"""
         # Obtenemos los datos del contexto
-        sale = self.context['sale']
+        recipe = self.context['recipe']
         label = self.context['label']
 
         # Creamos el label en la receta
         recipe_label = RecipeLabel.objects.create(
-            sale=sale,
+            recipe=recipe,
             label=label
         )
 

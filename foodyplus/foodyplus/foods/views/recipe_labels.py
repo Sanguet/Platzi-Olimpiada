@@ -15,7 +15,12 @@ from foodyplus.foods.permissions import IsAdminUser
 from rest_framework.permissions import IsAuthenticated
 
 
-class RecipeLabelViewSet(viewsets.GenericViewSet):
+class RecipeLabelViewSet(mixins.ListModelMixin,
+                         mixins.CreateModelMixin,
+                         mixins.RetrieveModelMixin,
+                         mixins.DestroyModelMixin,
+                         viewsets.GenericViewSet):
+    "RecipeLabel view set"
 
     serializer_class = RecipeLabelModelSerializer
 
