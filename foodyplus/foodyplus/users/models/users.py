@@ -12,6 +12,12 @@ class User(BasicModel, AbstractUser):
 
     Extiende del modelo StockModel y AbstractUser,
     """
+    fav_list = models.ManyToManyField(
+        "foods.Recipe",
+        through="Favorite",
+        through_fields=("user", "recipe")
+    )
+
     email = models.EmailField(
         "Direccion de email",
         unique=True,
