@@ -55,10 +55,12 @@ class Recipe(BasicModel):
         null=True
     )
 
-    total_time = models.TimeField(
+    total_time = models.DecimalField(
         'Tiempo que se demora en preparar la receta',
         blank=True,
-        null=True
+        max_digits=19,
+        decimal_places=2,
+        default=1
     )
 
     likes = models.IntegerField(
