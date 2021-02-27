@@ -60,3 +60,7 @@ class User(BasicModel, AbstractUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", ]
+
+    def __str__(self):
+        """Regresa el nombre de usuario"""
+        return str(self.username)

@@ -16,7 +16,7 @@ class PlanningDetail(BasicModel):
 
     recipe = models.ForeignKey('Recipe', on_delete=models.SET_NULL, null=True)
 
-    day = models.DateTimeField(
+    day = models.IntegerField(
         "Dia de la semana o del mes"
     )
 

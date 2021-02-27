@@ -11,6 +11,8 @@ from foodyplus.foods.models import Planning
 class PlanningModelSerializer(serializers.ModelSerializer):
     """Modelo serializer del circulo"""
 
+    user = serializers.StringRelatedField(many=False, required=False)
+
     class Meta:
         """Meta class"""
 
@@ -23,6 +25,8 @@ class PlanningModelSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'id', 'user'
         )
+
+        depth = 1
 
     def create(self, data):
         """Creacion de la venta"""
