@@ -30,7 +30,8 @@ class UserModelSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'username',
-            'email', 'account_type'
+            'email', 'account_type',
+            'fav_list'
         )
         read_only_fields = (
             'id',
