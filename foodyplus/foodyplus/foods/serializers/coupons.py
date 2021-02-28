@@ -1,15 +1,21 @@
+# Django
+from django.utils import timezone
+
 # Django REST Framework
 from rest_framework import serializers
 
 # Model
 from foodyplus.foods.models import Coupon
 
+# Validators
+from foodyplus.foods.validators import Validators
+
 # Utils
 import random
 from string import ascii_uppercase, digits
-
-# Validators
-from foodyplus.foods.validators import Validators
+from datetime import date
+from datetime import datetime
+from datetime import timedelta
 
 
 class CouponModelSerializer(serializers.ModelSerializer):
@@ -43,10 +49,15 @@ class CouponModelSerializer(serializers.ModelSerializer):
         user = self.context['user']
         code = SucesionAleatoria()
 
+        # Horario de entrega
+        now = timezone.now() - timedelta(hours=3)
+        exp_date = datetime(year=now.year, month=now.month, day=now.day)
+
         # Creamos el cupon
         coupon = Coupon.objects.create(
             user=user,
             code=code,
+            exp_date=exp_date,
             **data
         )
 

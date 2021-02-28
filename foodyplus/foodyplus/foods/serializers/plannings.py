@@ -1,6 +1,3 @@
-# Django
-from django.utils import timezone
-
 # Django REST Framework
 from rest_framework import serializers
 
