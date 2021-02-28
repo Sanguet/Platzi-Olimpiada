@@ -24,8 +24,8 @@ class SaleViewSet(viewsets.ModelViewSet):
 
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
-    search_fields = ('detail', 'payment_method', 'user', 'finalize',
-                     'total', 'comment', 'shipping_info', 'discount', 'delivery_date', 'steps', 'tracking_code')
+    search_fields = ('payment_method', 'user__username', 'finalize', 'tracking_code'
+                     'total', 'comment', 'shipping_info__first_name', 'discount', 'delivery_date', 'steps')
     ordering_fields = ('detail', 'payment_method', 'user', 'finalize',
                        'shipping_info', 'discount', 'delivery_date', 'steps', 'tracking_code')
     ordering = ()

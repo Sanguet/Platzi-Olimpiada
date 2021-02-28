@@ -22,7 +22,7 @@ class PlanningViewSet(viewsets.ModelViewSet):
 
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
-    search_fields = ('user', 'detail', 'name', 'format_date', 'description')
+    search_fields = ('user__username', 'detail__id', 'name', 'format_date', 'description')
     ordering_fields = ('user', 'name', 'format_date')
     ordering = ()
     filter_fields = ('user', 'detail', 'name', 'format_date', 'description')
