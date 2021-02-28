@@ -7,6 +7,7 @@ from foodyplus.utils.models import BasicModel
 
 class Favorite(BasicModel):
     """Modelo de las recetas favoritas del usuario
+    Tabla intermedia entre user y recipe
     Extiende de BasicModel para las metricas
     """
 
