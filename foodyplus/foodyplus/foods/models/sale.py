@@ -95,6 +95,12 @@ class Sale(BasicModel):
         blank=True
     )
 
+    finalize = models.BooleanField(
+        'Estado de finalizacion de la venta',
+        default=False,
+        blank=True
+    )
+
     def __str__(self):
         """Regresa el id de la venta"""
         return str(self.id)

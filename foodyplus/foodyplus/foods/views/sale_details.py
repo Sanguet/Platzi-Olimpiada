@@ -38,7 +38,7 @@ class SaleDetailViewSet(mixins.ListModelMixin,
     def get_permissions(self):
         """Asignamos los permisos en base a las acciones."""
         permissions = [IsAuthenticated, IsAdminUser]
-        if self.action in ['create', 'delete', 'list']:
+        if self.action in ['create', 'destroy', 'list']:
             permissions = []
         return [permission() for permission in permissions]
 

@@ -7,6 +7,9 @@ from rest_framework import serializers
 # Model
 from foodyplus.foods.models import Sale
 
+# Task
+from foodyplus.taskapp.tasks import send_tracking_sale_email
+
 # Validators
 from foodyplus.foods.validators import Validators
 
@@ -28,7 +31,7 @@ class SaleModelSerializer(serializers.ModelSerializer):
             'id', 'user', 'payment_method',
             'comment', 'shipping_info', 'discount',
             'delivery_date', 'steps', 'total', 'detail',
-            'delivery_charge', 'tracking_code'
+            'delivery_charge', 'tracking_code', 'finalize'
         )
         read_only_fields = (
             'id', 'user', 'delivery_date',
@@ -78,6 +81,23 @@ class TrackingSerializer(serializers.Serializer):
         sale_step = sale.steps
 
         return sale_step
+
+
+class EmailSerializer(serializers.Serializer):
+    """Recuperamos el estado del seguimiento de la venta"""
+    email = serializers.CharField(min_length=8)
+    sale = serializers.CharField()
+
+    def validate_sale(self, data):
+        """Validamos el campo sale"""
+        # Verificamos que la venta exista
+        self.context['sale'] = Validators.sale(pk=data)
+
+    def save(self):
+        """Enviamos el codigo de seguimiento al email del cliente"""
+        tracking_code = self.context['sale'].tracking_code
+        email = self.data['email']
+        send_tracking_sale_email(tracking_code=tracking_code, email=email)
 
 
 def SucesionAleatoria():

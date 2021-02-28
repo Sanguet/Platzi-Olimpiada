@@ -57,3 +57,17 @@ def send_reset_password_email(user_pk):
     msg = EmailMultiAlternatives(subject, content, from_email, [user.email])
     msg.attach_alternative(content, "text/html")
     msg.send()
+
+
+@task(name='send_tracking_sale_email', max_retries=3)
+def send_tracking_sale_email(tracking_code, email):
+    """Manda el email reset de contraseña y token"""
+    subject = 'Seguimiento de la venta'
+    from_email = 'foodyplus <noreply@foodyplus.com>'
+    content = render_to_string(
+        'emails/foods/tracking_sale.html',
+        {'tracking_code': tracking_code}
+    )
+    msg = EmailMultiAlternatives(subject, content, from_email, [email])
+    msg.attach_alternative(content, "text/html")
+    msg.send()
