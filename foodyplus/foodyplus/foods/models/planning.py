@@ -27,16 +27,16 @@ class Planning(BasicModel):
         max_length=100
     )
 
-    DATE_TYPES = (
+    FORMAT_DATE_TYPES = (
         ('S', 'Semanal'),
         ('M', 'Mensual')
     )
 
-    date = models.CharField(
+    format_date = models.CharField(
         "Tipo de planificacion",
         default="S",
         max_length=1,
-        choices=DATE_TYPES,
+        choices=FORMAT_DATE_TYPES,
         blank=True,
     )
 

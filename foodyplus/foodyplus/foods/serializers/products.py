@@ -25,7 +25,7 @@ class ProductModelSerializer(serializers.ModelSerializer):
             'id',
             'product_category',
             'name', 'cost',
-            'price', 'stock',
+            'price', 'stock', 'unit',
             'provider', 'picture',
             'barcode',
             'comment', 'units_sales',

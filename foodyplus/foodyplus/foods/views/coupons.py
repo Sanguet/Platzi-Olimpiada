@@ -22,10 +22,10 @@ class CouponViewSet(viewsets.ModelViewSet):
 
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
-    search_fields = ('user', 'name', 'code', 'discount')
-    ordering_fields = ('user', 'name', 'code', 'discount')
+    search_fields = ('user', 'name', 'code', 'discount', 'exp_date')
+    ordering_fields = ('user', 'name', 'code', 'discount', 'exp_date')
     ordering = ()
-    filter_fields = ('user', 'name', 'code', 'discount')
+    filter_fields = ('user', 'name', 'code', 'discount', 'exp_date')
 
     def get_permissions(self):
         """Asignamos los permisos en base a las acciones."""

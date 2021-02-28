@@ -19,7 +19,7 @@ class PlanningModelSerializer(serializers.ModelSerializer):
         model = Planning
         fields = (
             'id', 'user',
-            'name', 'date',
+            'name', 'format_date',
             'description', 'detail'
         )
         read_only_fields = (

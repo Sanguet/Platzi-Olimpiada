@@ -88,6 +88,13 @@ class Sale(BasicModel):
         null=True
     )
 
+    tracking_code = models.CharField(
+        'Codigo de seguimiento',
+        unique=True,
+        max_length=20,
+        blank=True
+    )
+
     def __str__(self):
         """Regresa el id de la venta"""
         return str(self.id)

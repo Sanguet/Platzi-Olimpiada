@@ -32,3 +32,7 @@ class Coupon(BasicModel):
         max_digits=19,
         decimal_places=2,
     )
+
+    exp_date = models.DateTimeField(
+        "Fecha de expiracion",
+    )

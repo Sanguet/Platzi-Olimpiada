@@ -39,3 +39,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
         queryset = Recipe.objects.all()
         queryset = queryset.filter(is_active=True)
         return queryset
+
+    def perform_destroy(self, instance):
+        """Solo desactivamos la venta"""
+        # Delete
+        instance.is_active = False
+        instance.save()

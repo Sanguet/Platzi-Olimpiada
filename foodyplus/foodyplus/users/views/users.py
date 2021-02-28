@@ -109,7 +109,6 @@ class UserViewSet(mixins.RetrieveModelMixin,
         password = serializer.save()
         data = {
             'message': 'La contraseña se reseteo con exito!',
-            'Contraseña': password
         }
         return Response(data, status=status.HTTP_200_OK)
 

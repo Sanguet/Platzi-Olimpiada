@@ -24,10 +24,11 @@ class CouponModelSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'user', 'name',
-            'code', 'discount'
+            'code', 'discount',
+            'exp_date'
         )
         read_only_fields = (
-            'id', 'code'
+            'id', 'code', 'exp_date'
         )
 
     def validate_user(self, data):

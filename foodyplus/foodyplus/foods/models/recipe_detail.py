@@ -15,10 +15,12 @@ class RecipeDetail(BasicModel):
 
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
 
-    amount = models.PositiveIntegerField(
+    amount = models.DecimalField(
         "Cantidad del producto",
         default=1,
-        blank=True
+        blank=True,
+        max_digits=19,
+        decimal_places=2,
     )
 
     unit = models.CharField(

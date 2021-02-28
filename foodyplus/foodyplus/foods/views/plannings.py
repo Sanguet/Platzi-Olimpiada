@@ -22,10 +22,10 @@ class PlanningViewSet(viewsets.ModelViewSet):
 
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
-    search_fields = ('user', 'detail', 'name', 'date', 'description')
-    ordering_fields = ('user', 'name', 'date')
+    search_fields = ('user', 'detail', 'name', 'format_date', 'description')
+    ordering_fields = ('user', 'name', 'format_date')
     ordering = ()
-    filter_fields = ('user', 'detail', 'name', 'date', 'description')
+    filter_fields = ('user', 'detail', 'name', 'format_date', 'description')
 
     def get_permissions(self):
         """Asigna permisos dependiendo de la accion"""
