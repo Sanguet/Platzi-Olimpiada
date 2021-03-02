@@ -68,7 +68,7 @@ class SaleModelSerializer(serializers.ModelSerializer):
 
 class TrackingSerializer(serializers.Serializer):
     """Recuperamos el estado del seguimiento de la venta"""
-    tracking_code = serializers.CharField(min_length=13, max_length=13)
+    tracking_code = serializers.CharField(min_length=10, max_length=10)
 
     def save(self):
         """En base al codigo buscamos la venta"""
@@ -100,7 +100,7 @@ class EmailSerializer(serializers.Serializer):
 
 
 def SucesionAleatoria():
-    CODE_LENGTH = 13
+    CODE_LENGTH = 10
     pool = ascii_uppercase + digits
     code = random.choices(pool, k=CODE_LENGTH)
     code = "".join(code)
