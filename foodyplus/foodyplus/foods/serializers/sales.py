@@ -14,7 +14,6 @@ from foodyplus.taskapp.tasks import send_tracking_sale_email
 from foodyplus.foods.validators import Validators
 
 # Utils
-from datetime import date
 from datetime import timedelta
 import random
 from string import ascii_uppercase, digits
@@ -69,7 +68,7 @@ class SaleModelSerializer(serializers.ModelSerializer):
 
 class TrackingSerializer(serializers.Serializer):
     """Recuperamos el estado del seguimiento de la venta"""
-    tracking_code = serializers.CharField(min_length=20, max_length=20)
+    tracking_code = serializers.CharField(min_length=13, max_length=13)
 
     def save(self):
         """En base al codigo buscamos la venta"""
@@ -101,7 +100,7 @@ class EmailSerializer(serializers.Serializer):
 
 
 def SucesionAleatoria():
-    CODE_LENGTH = 20
+    CODE_LENGTH = 13
     pool = ascii_uppercase + digits
     code = random.choices(pool, k=CODE_LENGTH)
     code = "".join(code)

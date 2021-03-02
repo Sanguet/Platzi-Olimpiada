@@ -19,11 +19,18 @@ class RecipeModelSerializer(serializers.ModelSerializer):
 
         model = Recipe
         fields = (
-            'id', 'recipe_category', 'description', 'name', 'video', 'utensils',
-            'country', 'total_time', 'likes', 'portions', 'detail', 'label'
+            'id', 'recipe_category',
+            'description', 'name',
+            'video', 'utensils',
+            'country', 'total_time',
+            'likes', 'portions',
+            'detail', 'label',
+            'comment', 'preparation',
+            'tips'
         )
         read_only_fields = (
-            'id',
+            'id', 'likes', 'detail',
+            'comment', 'label'
         )
 
         depth = 1

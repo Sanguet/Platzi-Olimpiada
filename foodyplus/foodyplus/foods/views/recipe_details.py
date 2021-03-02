@@ -1,8 +1,6 @@
 # Django REST Framework
 from rest_framework import viewsets, mixins
 from rest_framework.generics import get_object_or_404
-from rest_framework.exceptions import NotFound
-
 
 # Serializers
 from foodyplus.foods.serializers import RecipeDetailModelSerializer
@@ -49,6 +47,4 @@ class RecipeDetailViewSet(mixins.ListModelMixin,
             recipe_id=self.recipe,
             is_active=True,
         )
-        if queryset.count() == 0:
-            raise NotFound("No se encontraron detalles dentro de esta receta")
         return queryset

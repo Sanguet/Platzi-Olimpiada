@@ -40,6 +40,13 @@ class Recipe(BasicModel):
         max_length=100
     )
 
+    picture = models.ImageField(
+        "Imagen de la receta",
+        upload_to="foods/pictures/",
+        blank=True,
+        null=True
+    )
+
     video = models.URLField(
         'Link del video de la receta',
         max_length=1000,
@@ -97,3 +104,7 @@ class Recipe(BasicModel):
         blank=True,
         null=True
     )
+
+    def __str__(self):
+        """Regresa el nombre de la etiqueta"""
+        return str(self.name)

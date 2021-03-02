@@ -11,6 +11,7 @@ from foodyplus.foods.validators import Validators
 class FavoriteModelSerializer(serializers.ModelSerializer):
     """Modelo serializer del circulo"""
 
+    user = serializers.StringRelatedField(many=False, required=False)
     recipe = serializers.CharField()
 
     class Meta:
@@ -24,6 +25,8 @@ class FavoriteModelSerializer(serializers.ModelSerializer):
         read_only_fields = (
             'id', 'user'
         )
+
+        depth = 1
 
     def validate_recipe(self, data):
         """Validador individual del label"""

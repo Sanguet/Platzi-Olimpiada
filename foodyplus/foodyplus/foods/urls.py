@@ -17,6 +17,7 @@ from .views import coupons as coupons_views
 from .views import recipe_details as recipe_details_views
 from .views import plannings as plannings_views
 from .views import planning_details as plannings_details_views
+from .views import recipe_comments as recipe_comments_views
 
 
 router = DefaultRouter()
@@ -37,6 +38,11 @@ router.register(
     r'recipes/(?P<recipe_pk>\d+)/details',
     recipe_details_views.RecipeDetailViewSet,
     basename='recipe_detail'
+)
+router.register(
+    r'recipes/(?P<recipe_pk>\d+)/comments',
+    recipe_comments_views.RecipeCommentViewSet,
+    basename='recipe_comment'
 )
 router.register(
     r'sales/(?P<sale_pk>\d+)/details',

@@ -1,7 +1,6 @@
 # Django REST Framework
 from rest_framework import mixins, viewsets
 from rest_framework.generics import get_object_or_404
-from rest_framework.exceptions import NotFound
 
 # Models
 from foodyplus.foods.models import Planning, PlanningDetail
@@ -51,6 +50,4 @@ class PlanningDetailViewSet(mixins.ListModelMixin,
             planning_id=self.planning,
             is_active=True,
         )
-        if queryset.count() == 0:
-            raise NotFound("No se encontro un detalle de planificacion para este usuario")
         return queryset

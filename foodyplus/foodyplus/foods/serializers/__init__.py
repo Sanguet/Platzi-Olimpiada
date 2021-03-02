@@ -10,3 +10,4 @@ from .coupons import *
 from .recipe_details import *
 from .plannings import *
 from .planning_details import *
+from .recipe_comments import*

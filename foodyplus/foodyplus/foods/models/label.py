@@ -14,3 +14,7 @@ class Label(BasicModel):
         "Nombre de la etiqueta",
         max_length=100
     )
+
+    def __str__(self):
+        """Regresa el nombre de la etiqueta"""
+        return str(self.name)

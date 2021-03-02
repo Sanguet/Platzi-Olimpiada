@@ -20,3 +20,7 @@ class RecipeComment(BasicModel):
         'Comentario de la venta',
         max_length=700,
     )
+
+    def __str__(self):
+        """Regresa el nombre del usuario que comento"""
+        return str(self.user)
