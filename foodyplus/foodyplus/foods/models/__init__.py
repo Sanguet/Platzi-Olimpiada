@@ -11,3 +11,4 @@ from .label import *
 from .recipe_label import *
 from .planning import *
 from .planning_detail import *
+from .recipe_comment import *

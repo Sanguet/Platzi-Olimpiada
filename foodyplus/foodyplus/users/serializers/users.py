@@ -37,6 +37,8 @@ class UserModelSerializer(serializers.ModelSerializer):
             'id',
         )
 
+        depth = 1
+
 
 class UserLoginSerializer(serializers.Serializer):
     """User login serializer.

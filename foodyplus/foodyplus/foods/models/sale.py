@@ -91,7 +91,7 @@ class Sale(BasicModel):
     tracking_code = models.CharField(
         'Codigo de seguimiento',
         unique=True,
-        max_length=20,
+        max_length=10,
         blank=True
     )
 

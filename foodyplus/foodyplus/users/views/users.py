@@ -106,7 +106,7 @@ class UserViewSet(mixins.RetrieveModelMixin,
         """Account verification API view."""
         serializer = ResetPasswordSerializer(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
-        password = serializer.save()
+        serializer.save()
         data = {
             'message': 'La contraseña se reseteo con exito!',
         }

@@ -12,6 +12,7 @@ class RecipeLabelModelSerializer(serializers.ModelSerializer):
     """Modelo serializer del circulo"""
 
     label = serializers.CharField()
+    recipe = serializers.StringRelatedField(many=False, required=False)
 
     class Meta:
         """Meta class"""

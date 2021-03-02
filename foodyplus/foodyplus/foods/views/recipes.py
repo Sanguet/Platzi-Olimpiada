@@ -23,7 +23,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
     search_fields = ('recipe_category__name', 'description', 'name', 'video', 'utensils',
-                     'country', 'total_time', 'likes', 'portions', 'detail__id', 'label__name')
+                     'country', 'total_time', 'likes', 'portions', 'detail__id', 'label__name', 'preparation', 'tips')
     ordering = ('country', 'total_time', 'likes', 'portions')
     filter_fields = ('recipe_category', 'description', 'name', 'video', 'utensils',
                      'country', 'total_time', 'likes', 'portions', 'detail', 'label')

@@ -1,8 +1,6 @@
 # Django REST Framework
 from rest_framework import viewsets, mixins
 from rest_framework.generics import get_object_or_404
-from rest_framework.exceptions import NotFound
-
 
 # Serializers
 from foodyplus.users.serializers import FavoriteModelSerializer
@@ -43,6 +41,4 @@ class FavoriteViewSet(mixins.ListModelMixin,
             user_id=self.user,
             is_active=True,
         )
-        if queryset.count() == 0:
-            raise NotFound("No se encontraron favoritos dentro del usuario")
         return queryset
