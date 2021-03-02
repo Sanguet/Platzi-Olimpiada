@@ -23,6 +23,12 @@ class Recipe(BasicModel):
         through_fields=("recipe", "product")
     )
 
+    comment = models.ManyToManyField(
+        "users.User",
+        through="RecipeComment",
+        through_fields=("recipe", "user")
+    )
+
     label = models.ManyToManyField(
         "Label",
         through="RecipeLabel",
@@ -36,7 +42,7 @@ class Recipe(BasicModel):
 
     video = models.URLField(
         'Link del video de la receta',
-        max_length=500,
+        max_length=1000,
         blank=True,
         null=True
     )
@@ -52,7 +58,7 @@ class Recipe(BasicModel):
         'Pais de origen de la receta',
         max_length=50,
         blank=True,
-        null=True
+        default='Internacional'
     )
 
     total_time = models.DecimalField(
@@ -77,13 +83,16 @@ class Recipe(BasicModel):
 
     description = models.TextField(
         'Descripcion de la receta',
-        max_length=700,
-        blank=True,
-        null=True
+        max_length=4000,
     )
 
-    comment = models.TextField(
-        'Comentario de la receta',
+    preparation = models.TextField(
+        'Preparacion de la receta',
+        max_length=4000,
+    )
+
+    tips = models.TextField(
+        'Consejos de la receta',
         max_length=700,
         blank=True,
         null=True
