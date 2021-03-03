@@ -124,6 +124,49 @@ class PleasuresSerializer(serializers.Serializer):
         recipes = Recipe.objects.filter(country__in=country,
                                         recipe_category__in=categories,
                                         portions__lte=portions,
-                                        total_time__lte=total_time)
+                                        total_time__lte=total_time,
+                                        is_active=True)
 
         return recipes[:30]
+
+
+class ByIngredientsSerializer(serializers.Serializer):
+    """Buscamos las recetas que tengan los ingredientes que pide el cliente"""
+
+    ingredients = serializers.CharField()
+
+    def validate_ingredients(self, data):
+        """Validamos el campo ingredients"""
+        # Verificamos que todos los ingredientes existan
+        separador = ','
+        ids = data.split(separador)
+        ingredients = []
+
+        # Para cada id de categoria vamos a verificar si existe y extraer el objeto
+        for id in ids:
+            ingredient = Validators.product(id)
+            ingredients.append(ingredient)
+
+        self.context['ingredients'] = ingredients
+
+    def save(self):
+        """Realizamos el query en base a los ingredientes"""
+        ingredients = self.context['ingredients']
+        recipes = Recipe.objects.filter(detail__in=ingredients, is_active=True)
+
+        new_recipes = {}
+
+        for recipe in recipes:
+            if recipe.name in new_recipes:
+                new_recipes[recipe.name]['compatibility'] += 1
+            else:
+                new_recipes[recipe.name] = {}
+                new_recipes[recipe.name]['id'] = recipe.pk
+                new_recipes[recipe.name]['compatibility'] = 1
+                if recipe.picture:
+                    new_recipes[recipe.name]['picture'] = recipe.picture
+                else:
+                    new_recipes[recipe.name]['picture'] = None
+                new_recipes[recipe.name]['likes'] = recipe.likes
+
+        return new_recipes
