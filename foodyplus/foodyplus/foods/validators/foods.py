@@ -53,6 +53,17 @@ class Validators():
             raise serializers.ValidationError('1036: Categoria de la receta no encontrado')
         return recipe_category
 
+    def recipe_category_name(name):
+        """Validador del campo recipe_category
+
+        name es un String
+        """
+        try:
+            recipe_category = RecipeCategory.objects.get(name=name)
+        except RecipeCategory.DoesNotExist:
+            raise serializers.ValidationError('1036: Categoria de la receta no encontrado')
+        return recipe_category
+
     def label(pk):
         """Validador del campo label
 

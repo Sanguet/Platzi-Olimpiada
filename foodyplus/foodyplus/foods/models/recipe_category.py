@@ -13,7 +13,8 @@ class RecipeCategory(BasicModel):
 
     name = models.CharField(
         "Nombre de la categoria",
-        max_length=100
+        max_length=100,
+        unique=True
     )
 
     comment = models.TextField(

@@ -42,3 +42,13 @@ class FavoriteViewSet(mixins.ListModelMixin,
             is_active=True,
         )
         return queryset
+
+    def perform_destroy(self, instance):
+        """Solo desactivamos la venta"""
+        # Sacar likes
+        recipe = instance.recipe
+        recipe.likes -= 1
+        recipe.save()
+
+        # Delete
+        instance.delete()

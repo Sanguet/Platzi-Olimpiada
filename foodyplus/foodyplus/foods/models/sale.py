@@ -21,6 +21,8 @@ class Sale(BasicModel):
     shipping_info = models.ForeignKey(
         "users.ShippingInfo",
         on_delete=models.CASCADE,
+        blank=True,
+        null=True
     )
 
     discount = models.DecimalField(
