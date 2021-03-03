@@ -7,6 +7,9 @@ from foodyplus.foods.models import Recipe
 # Validators
 from foodyplus.foods.validators import Validators
 
+# Utils
+from decimal import Decimal
+
 
 class RecipeModelSerializer(serializers.ModelSerializer):
     """Modelo serializer del circulo"""
@@ -81,8 +84,89 @@ class RecipeModelSerializer(serializers.ModelSerializer):
         instance.likes = data.get('likes', instance.likes)
         instance.portions = data.get('portions', instance.portions)
         instance.description = data.get('description', instance.description)
-        instance.comment = data.get('comment', instance.comment)
 
         instance.save()
 
         return instance
+
+
+class PleasuresSerializer(serializers.Serializer):
+    """En base a los gustos y preferencias del cliente le mostramos las recetas que concuerden"""
+
+    country = serializers.CharField()
+    categories = serializers.CharField()
+    portions = serializers.IntegerField(min_value=1)
+    total_time = serializers.DecimalField(max_digits=19, decimal_places=2, min_value=0.00)
+
+    def validate_categories(self, data):
+        """Validamos el campo categories"""
+        # Verificamos que todas las categorias existan
+        separador = ','
+        ids = data.split(separador)
+        categories = []
+
+        # Para cada id de categoria vamos a verificar si existe y extraer el objeto
+        for id in ids:
+            category = Validators.recipe_category(id)
+            categories.append(category)
+
+        self.context['categories'] = categories
+
+    def save(self):
+        """Realizamos el query en base a los gustos del cliente"""
+        # Pasamos los datos en limpio
+        country = [self.data['country'], 'Internacional']
+        categories = self.context['categories']
+        portions = int(self.data['portions'])
+        total_time = Decimal(self.data['total_time'])
+
+        # Realizamos el query con los datos recuperados
+        recipes = Recipe.objects.filter(country__in=country,
+                                        recipe_category__in=categories,
+                                        portions__lte=portions,
+                                        total_time__lte=total_time,
+                                        is_active=True)
+
+        return recipes[:30]
+
+
+class ByIngredientsSerializer(serializers.Serializer):
+    """Buscamos las recetas que tengan los ingredientes que pide el cliente"""
+
+    ingredients = serializers.CharField()
+
+    def validate_ingredients(self, data):
+        """Validamos el campo ingredients"""
+        # Verificamos que todos los ingredientes existan
+        separador = ','
+        ids = data.split(separador)
+        ingredients = []
+
+        # Para cada id de categoria vamos a verificar si existe y extraer el objeto
+        for id in ids:
+            ingredient = Validators.product(id)
+            ingredients.append(ingredient)
+
+        self.context['ingredients'] = ingredients
+
+    def save(self):
+        """Realizamos el query en base a los ingredientes"""
+        ingredients = self.context['ingredients']
+        recipes = Recipe.objects.filter(detail__in=ingredients, is_active=True)
+
+        new_recipes = {}
+
+        for recipe in recipes:
+            if recipe.name in new_recipes:
+                new_recipes[recipe.name]['compatibility'] += 1
+            else:
+                new_recipes[recipe.name] = {}
+                new_recipes[recipe.name]['id'] = recipe.pk
+                new_recipes[recipe.name]['compatibility'] = 1
+                if recipe.picture:
+                    new_recipes[recipe.name]['picture'] = recipe.picture
+                else:
+                    new_recipes[recipe.name]['picture'] = None
+                new_recipes[recipe.name]['likes'] = recipe.likes
+
+        return new_recipes

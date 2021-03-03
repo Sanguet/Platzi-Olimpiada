@@ -1,8 +1,10 @@
 # Django REST Framework
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 # Serializers
-from foodyplus.foods.serializers import RecipeModelSerializer
+from foodyplus.foods.serializers import RecipeModelSerializer, PleasuresSerializer, ByIngredientsSerializer
 
 # Models
 from foodyplus.foods.models import Recipe
@@ -33,6 +35,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
         permissions = [IsAuthenticated, IsAdminUser]
         if self.action in ['list']:
             permissions = []
+        if self.action in ['pleasures', 'by_ingredients']:
+            permissions = [IsAuthenticated]
         return [permission() for permission in permissions]
 
     def get_queryset(self):
@@ -45,3 +49,27 @@ class RecipeViewSet(viewsets.ModelViewSet):
         # Delete
         instance.is_active = False
         instance.save()
+
+    @action(detail=False, methods=["post"])
+    def pleasures(self, request):
+        """Buscamos las recetas que se acomoden a los gustos del cliente"""
+        serializer = PleasuresSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        recipes = serializer.save()
+        data = {
+            'message': 'Recetas recuperada con exito! son maximo 30',
+            'recipes': RecipeModelSerializer(recipes, many=True).data
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=["post"])
+    def by_ingredients(self, request):
+        """Buscamos las recetas que tengan los ingredientes que pide el cliente"""
+        serializer = ByIngredientsSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        recipes = serializer.save()
+        data = {
+            'message': 'Recetas recuperada con exito! son maximo 30',
+            'recipes': recipes
+        }
+        return Response(data, status=status.HTTP_200_OK)
