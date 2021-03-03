@@ -68,13 +68,6 @@ class Product(BasicModel):
         null=True
     )
 
-    comment = models.TextField(
-        'Comentario del cliente',
-        max_length=700,
-        blank=True,
-        null=True
-    )
-
     picture = models.ImageField(
         "imagen del producto",
         upload_to="foods/pictures/",

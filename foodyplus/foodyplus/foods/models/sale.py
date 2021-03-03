@@ -40,9 +40,9 @@ class Sale(BasicModel):
     )
 
     PAYMENT_TYPES = (
-        ('C', 'Contado'),
         ('D', 'Debito'),
-        ('T', 'Credito')
+        ('T', 'Credito'),
+        ('T', 'Paypal'),
     )
 
     payment_method = models.CharField(
@@ -70,15 +70,17 @@ class Sale(BasicModel):
     )
 
     STEP_TYPES = (
-        ('P', 'Preparandose'),
-        ('E', 'En camino'),
-        ('R', 'Recibido'),
+        ('R', 'Pedido recibido'),
+        ('C', 'Realizando las compras'),
+        ('P', 'Preparando el pedido'),
+        ('CA', 'Pedido en camino'),
+        ('E', 'Pedido entregado')
     )
 
     steps = models.CharField(
         'Seguimiento de la venta',
         default="P",
-        max_length=1,
+        max_length=2,
         choices=STEP_TYPES,
         blank=True,
     )

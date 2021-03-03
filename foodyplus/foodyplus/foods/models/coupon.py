@@ -17,7 +17,7 @@ class Coupon(BasicModel):
     )
 
     name = models.CharField(
-        "Nombre del producto",
+        "Nombre del cupon",
         max_length=100
     )
 
