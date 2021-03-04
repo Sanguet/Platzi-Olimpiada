@@ -24,11 +24,11 @@ class RecipeModelSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'recipe_category',
             'description', 'name',
-            'video',
+            'video', 'picture',
             'country', 'total_time',
             'likes', 'portions',
-            'detail',
             'comment', 'preparation',
+            'detail',
         )
         read_only_fields = (
             'id', 'likes', 'detail',
@@ -77,6 +77,7 @@ class RecipeModelSerializer(serializers.ModelSerializer):
         instance.recipe_category = self.context['recipe_category']
         instance.name = data.get('name', instance.name)
         instance.video = data.get('video', instance.video)
+        instance.picture = data.get('picture', instance.picture)
         instance.country = data.get('country', instance.country)
         instance.total_time = data.get('total_time', instance.total_time)
         instance.likes = data.get('likes', instance.likes)
