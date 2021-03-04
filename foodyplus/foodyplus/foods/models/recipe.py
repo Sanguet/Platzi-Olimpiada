@@ -29,12 +29,6 @@ class Recipe(BasicModel):
         through_fields=("recipe", "user")
     )
 
-    label = models.ManyToManyField(
-        "Label",
-        through="RecipeLabel",
-        through_fields=("recipe", "label")
-    )
-
     name = models.CharField(
         "Nombre de la receta",
         max_length=100
@@ -50,13 +44,6 @@ class Recipe(BasicModel):
     video = models.URLField(
         'Link del video de la receta',
         max_length=1000,
-        blank=True,
-        null=True
-    )
-
-    utensils = models.TextField(
-        'Utencilios utilizados',
-        max_length=500,
         blank=True,
         null=True
     )
@@ -96,13 +83,6 @@ class Recipe(BasicModel):
     preparation = models.TextField(
         'Preparacion de la receta',
         max_length=4000,
-    )
-
-    tips = models.TextField(
-        'Consejos de la receta',
-        max_length=700,
-        blank=True,
-        null=True
     )
 
     def __str__(self):

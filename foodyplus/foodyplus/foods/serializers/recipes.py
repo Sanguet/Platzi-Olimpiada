@@ -24,16 +24,15 @@ class RecipeModelSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'recipe_category',
             'description', 'name',
-            'video', 'utensils',
+            'video',
             'country', 'total_time',
             'likes', 'portions',
-            'detail', 'label',
+            'detail',
             'comment', 'preparation',
-            'tips'
         )
         read_only_fields = (
             'id', 'likes', 'detail',
-            'comment', 'label'
+            'comment'
         )
 
         depth = 1
@@ -78,7 +77,6 @@ class RecipeModelSerializer(serializers.ModelSerializer):
         instance.recipe_category = self.context['recipe_category']
         instance.name = data.get('name', instance.name)
         instance.video = data.get('video', instance.video)
-        instance.utensils = data.get('utensils', instance.utensils)
         instance.country = data.get('country', instance.country)
         instance.total_time = data.get('total_time', instance.total_time)
         instance.likes = data.get('likes', instance.likes)
@@ -93,7 +91,6 @@ class RecipeModelSerializer(serializers.ModelSerializer):
 class PleasuresSerializer(serializers.Serializer):
     """En base a los gustos y preferencias del cliente le mostramos las recetas que concuerden"""
 
-    country = serializers.CharField()
     categories = serializers.CharField()
     portions = serializers.IntegerField(min_value=1)
     total_time = serializers.DecimalField(max_digits=19, decimal_places=2, min_value=0.00)
@@ -115,14 +112,12 @@ class PleasuresSerializer(serializers.Serializer):
     def save(self):
         """Realizamos el query en base a los gustos del cliente"""
         # Pasamos los datos en limpio
-        country = [self.data['country'], 'Internacional']
         categories = self.context['categories']
         portions = int(self.data['portions'])
         total_time = Decimal(self.data['total_time'])
 
         # Realizamos el query con los datos recuperados
-        recipes = Recipe.objects.filter(country__in=country,
-                                        recipe_category__in=categories,
+        recipes = Recipe.objects.filter(recipe_category__in=categories,
                                         portions__lte=portions,
                                         total_time__lte=total_time,
                                         is_active=True)

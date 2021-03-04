@@ -3,9 +3,9 @@
 from django.contrib import admin
 
 # Models
-from foodyplus.foods.models import (Coupon, Label, Planning, PlanningDetail, ProductCategory,
+from foodyplus.foods.models import (Coupon, Planning, PlanningDetail, ProductCategory,
                                     Product, Recipe, RecipeCategory, RecipeDetail, RecipeComment,
-                                    RecipeLabel, Sale, SaleDetail)
+                                    Sale, SaleDetail)
 
 
 @admin.register(Coupon)
@@ -15,15 +15,6 @@ class CouponAdmin(admin.ModelAdmin):
     list_display = ('user', 'name', 'code', 'discount', 'exp_date')
     search_filter = ('user', 'name', 'code', 'discount')
     list_filter = ('exp_date',)
-
-
-@admin.register(Label)
-class LabelAdmin(admin.ModelAdmin):
-    """Label de admin"""
-
-    list_display = ('name',)
-    search_filter = ('name',)
-    list_filter = ('name',)
 
 
 @admin.register(Planning)
@@ -68,7 +59,7 @@ class RecipeAdmin(admin.ModelAdmin):
     """Recipe de admin"""
 
     list_display = ('recipe_category', 'name', 'picture',
-                    'video', 'utensils', 'country', 'total_time', 'likes', 'portions')
+                    'video', 'country', 'total_time', 'likes', 'portions')
     search_filter = ('recipe_category', 'name',
                      'country', 'total_time', 'likes', 'portions')
     list_filter = ('recipe_category', 'total_time', 'likes', 'portions')
@@ -98,15 +89,6 @@ class RecipeCommentAdmin(admin.ModelAdmin):
 
     list_display = ('recipe', 'user', 'comment')
     search_filter = ('recipe', 'user')
-    list_filter = ()
-
-
-@admin.register(RecipeLabel)
-class RecipeLabelAdmin(admin.ModelAdmin):
-    """RecipeLabel de admin"""
-
-    list_display = ('recipe', 'label')
-    search_filter = ('recipe', 'label')
     list_filter = ()
 
 
