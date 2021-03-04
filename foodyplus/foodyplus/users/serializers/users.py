@@ -11,7 +11,7 @@ from rest_framework.validators import UniqueValidator
 from foodyplus.taskapp.tasks import send_reset_password_email
 
 # Models
-from foodyplus.users.models import User, Profile
+from foodyplus.users.models import User
 
 # Utilities
 from foodyplus.utils.authenticate import get_tokens_for_user
@@ -94,7 +94,6 @@ class UserSignUpSerializer(serializers.Serializer):
             password=data['password'],
             phone_number=data['phone_number']
         )
-        Profile.objects.create(user=user)
 
         return user
 

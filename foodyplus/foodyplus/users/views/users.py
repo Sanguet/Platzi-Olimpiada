@@ -18,7 +18,6 @@ from foodyplus.users.serializers import (
     UserLoginSerializer,
     UserModelSerializer,
     UserSignUpSerializer,
-    ProfileModelSerializer,
     EmailPasswordSerializer,
     ResetPasswordSerializer
 )
@@ -28,7 +27,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
 # Models
-from foodyplus.users.models import User, Profile
+from foodyplus.users.models import User
 
 
 class UserViewSet(mixins.RetrieveModelMixin,
@@ -115,12 +114,8 @@ class UserViewSet(mixins.RetrieveModelMixin,
     def retrieve(self, request, *args, **kwargs):
         """Add extra data to the response."""
         response = super(UserViewSet, self).retrieve(request, *args, **kwargs)
-        profile = Profile.objects.get(
-            user=request.user,
-        )
         data = {
             'user': response.data,
-            'profile': ProfileModelSerializer(profile, many=False).data
         }
         response.data = data
         return response

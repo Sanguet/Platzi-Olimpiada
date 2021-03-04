@@ -21,10 +21,9 @@ class PlanningDetail(BasicModel):
     )
 
     TIME_TYPES = (
-        ('D', 'Desayuno'),
         ('A', 'Almuerzo'),
-        ('M', 'Merienda'),
         ('C', 'Cena'),
+        ('P', 'Postre'),
     )
 
     time = models.CharField(

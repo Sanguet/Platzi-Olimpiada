@@ -23,6 +23,11 @@ class RecipeCategory(BasicModel):
         blank=True
     )
 
+    icon_svg = models.TextField(
+        'Codigo del icono',
+        max_length=500,
+    )
+
     def __str__(self):
         """Regresa el nombre de la categoria"""
         return self.name
