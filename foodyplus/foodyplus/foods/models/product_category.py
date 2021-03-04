@@ -23,6 +23,11 @@ class ProductCategory(BasicModel):
         blank=True
     )
 
+    icon_svg = models.TextField(
+        'Codigo del icono',
+        max_length=500,
+    )
+
     usages = models.IntegerField(
         'Numero de veces que se uso la categoria en el mes',
         blank=True,

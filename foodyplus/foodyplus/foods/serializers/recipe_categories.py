@@ -17,6 +17,7 @@ class RecipeCategoryModelSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name', 'comment',
+            'icon_svg'
         )
         read_only_fields = (
             'id',
