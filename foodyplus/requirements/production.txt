@@ -4,8 +4,9 @@
 
 gunicorn==19.9.0
 
-# Static files
-django-storages[boto3]==1.7.1
+# AWS_S3
+django-storages==1.11.1
+boto3==1.17.21
 
 # Email
 django-anymail[mailgun]==5.0
