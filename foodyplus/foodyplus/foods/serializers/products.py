@@ -11,7 +11,7 @@ from foodyplus.foods.validators import Validators
 class ProductModelSerializer(serializers.ModelSerializer):
     """Modelo serializer del circulo"""
 
-    product_category = serializers.CharField()
+    product_category = serializers.CharField(required=False)
     name = serializers.CharField()
     cost = serializers.DecimalField(max_digits=19, decimal_places=2, min_value=0.00)
     price = serializers.DecimalField(max_digits=19, decimal_places=2, min_value=0.00)
@@ -26,10 +26,8 @@ class ProductModelSerializer(serializers.ModelSerializer):
             'product_category',
             'name', 'cost',
             'price', 'stock', 'unit',
-            'provider', 'picture',
-            'barcode',
-            'comment', 'units_sales',
-            'description',
+            'provider',
+            'barcode', 'units_sales',
             'discount'
 
         )
@@ -46,11 +44,16 @@ class ProductModelSerializer(serializers.ModelSerializer):
     def create(self, data):
         """Creacion de la venta"""
         # Sacamos los datos que ya tenemos en el context
-        data.pop('product_category')
+
+        try:
+            data.pop('product_category')
+            product_category = self.context['product_category']
+        except KeyError:
+            product_category = None
 
         # Creamos el producto
         product = Product.objects.create(
-            product_category=self.context['product_category'],
+            product_category=product_category,
             **data
         )
 
@@ -72,9 +75,6 @@ class ProductModelSerializer(serializers.ModelSerializer):
         instance.stock = data.get('stock', instance.stock)
         instance.provider = data.get('provider', instance.provider)
         instance.barcode = data.get('barcode', instance.barcode)
-        instance.comment = data.get('comment', instance.comment)
-        instance.description = data.get('description', instance.description)
-        instance.picture = data.get('picture', instance.picture)
         instance.discount = data.get('discount', instance.discount)
 
         instance.save()

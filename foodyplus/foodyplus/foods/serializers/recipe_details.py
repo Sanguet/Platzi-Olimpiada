@@ -26,26 +26,26 @@ class RecipeDetailModelSerializer(serializers.ModelSerializer):
             'discount', 'sub_total',
         )
         read_only_fields = (
-            'id', 'unit',
+            'id', 'sub_total',
             'recipe'
         )
 
     def validate_product(self, data):
         """Validador individual del product"""
-        self.context['product'] = Validators.product(pk=data)
+        self.context['product'] = Validators.product_name(name=data)
         return data
 
     def create(self, data):
         """Creacion de la venta"""
         # Sacamos los datos que ya tenemos en el context
         data.pop('product')
-        unit = self.context['product'].unit
+        sub_total = self.context['product'].price * data.get('amount')
 
         # Creamos el detalle
         recipe_detail = RecipeDetail.objects.create(
             product=self.context['product'],
             recipe=self.context['recipe'],
-            unit=unit,
+            sub_total=sub_total,
             **data
         )
 

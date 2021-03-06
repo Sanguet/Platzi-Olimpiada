@@ -40,7 +40,7 @@ class ProductAdmin(admin.ModelAdmin):
     """Product de admin"""
 
     list_display = ('product_category', 'name', 'cost', 'price', 'stock', 'provider', 'barcode',
-                    'discount', 'description', 'picture', 'units_sales', 'unit')
+                    'discount', 'units_sales', 'unit')
     search_filter = ('product_category', 'name', 'provider')
     list_filter = ('product_category', 'provider')
 

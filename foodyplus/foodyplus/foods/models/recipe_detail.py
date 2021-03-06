@@ -18,16 +18,13 @@ class RecipeDetail(BasicModel):
     amount = models.DecimalField(
         "Cantidad del producto",
         default=1,
-        blank=True,
         max_digits=19,
         decimal_places=2,
     )
 
     unit = models.CharField(
-        "Unidad de venta",
-        max_length=10,
-        null=True,
-        blank=True
+        "Cantidad real del producto",
+        max_length=50,
     )
 
     discount = models.DecimalField(

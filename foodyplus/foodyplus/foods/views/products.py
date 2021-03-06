@@ -22,11 +22,11 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     # Filters
     filter_backends = (SearchFilter, OrderingFilter, DjangoFilterBackend)
-    search_fields = ('name', 'cost', 'price', 'stock', 'provider', 'barcode', 'comment', 'units_sales')
+    search_fields = ('name', 'cost', 'price', 'stock', 'provider', 'barcode', 'units_sales')
     ordering_fields = ('name', 'cost', 'price', 'stock', 'provider')
     ordering = ()
     filter_fields = ('name', 'cost', 'price', 'stock', 'provider',
-                     'barcode', 'comment', 'product_category', 'units_sales')
+                     'barcode', 'product_category', 'units_sales')
 
     def get_permissions(self):
         """Asignamos los permisos en base a las acciones."""

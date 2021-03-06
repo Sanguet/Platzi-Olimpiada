@@ -30,6 +30,17 @@ class Validators():
         except Product.DoesNotExist:
             raise serializers.ValidationError('1035: Producto no encontrado')
         return product
+    
+    def product_name(name):
+        """Validador del campo product
+
+        name es un String
+        """
+        try:
+            product = Product.objects.get(name=name)
+        except Product.DoesNotExist:
+            raise serializers.ValidationError('1035: Producto no encontrado')
+        return product
 
     def product_category(pk):
         """Validador del campo product_category
