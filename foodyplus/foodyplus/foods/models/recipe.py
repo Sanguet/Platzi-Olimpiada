@@ -85,6 +85,14 @@ class Recipe(BasicModel):
         max_length=4000,
     )
 
+    price = models.DecimalField(
+        "Precio",
+        max_digits=19,
+        decimal_places=2,
+        blank=True,
+        null=True
+    )
+
     def __str__(self):
         """Regresa el nombre de la etiqueta"""
         return str(self.name)

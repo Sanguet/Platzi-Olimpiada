@@ -14,6 +14,7 @@ class Product(BasicModel):
     product_category = models.ForeignKey(
         "ProductCategory",
         on_delete=models.SET_NULL,
+        blank=True,
         null=True
     )
 
@@ -59,20 +60,6 @@ class Product(BasicModel):
         max_digits=19,
         decimal_places=2,
         default=0
-    )
-
-    description = models.TextField(
-        'Descripcion del producto',
-        max_length=700,
-        blank=True,
-        null=True
-    )
-
-    picture = models.ImageField(
-        "imagen del producto",
-        upload_to="foods/pictures/",
-        blank=True,
-        null=True
     )
 
     units_sales = models.IntegerField(

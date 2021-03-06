@@ -28,7 +28,7 @@ class RecipeModelSerializer(serializers.ModelSerializer):
             'country', 'total_time',
             'likes', 'portions',
             'comment', 'preparation',
-            'detail',
+            'detail', 'price'
         )
         read_only_fields = (
             'id', 'likes', 'detail',
