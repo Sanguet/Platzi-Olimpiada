@@ -23,9 +23,11 @@ class RecipeCategory(BasicModel):
         blank=True
     )
 
-    icon_svg = models.TextField(
-        'Codigo del icono',
-        max_length=500,
+    icon = models.ImageField(
+        "Imagen de la categoria",
+        upload_to="foods/pictures/",
+        blank=True,
+        null=True
     )
 
     def __str__(self):
