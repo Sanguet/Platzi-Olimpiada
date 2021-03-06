@@ -35,10 +35,11 @@ class Product(BasicModel):
         decimal_places=2
     )
 
-    stock = models.IntegerField(
+    stock = models.DecimalField(
         "Inventario del producto",
-        default=0,
-        blank=True
+        max_digits=19,
+        decimal_places=2,
+        default=1000
     )
 
     provider = models.CharField(

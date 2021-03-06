@@ -16,10 +16,11 @@ class SaleDetail(BasicModel):
 
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
 
-    amount = models.PositiveIntegerField(
+    amount = models.DecimalField(
         "Cantidad del producto",
-        default=1,
-        blank=True
+        max_digits=19,
+        decimal_places=2,
+        default=0
     )
 
     discount = models.DecimalField(
