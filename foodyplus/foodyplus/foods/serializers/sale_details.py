@@ -12,7 +12,7 @@ class SaleDetailModelSerializer(serializers.ModelSerializer):
     """Modelo serializer del circulo"""
 
     product = serializers.CharField()
-    amount = serializers.IntegerField()
+    amount = serializers.DecimalField(max_digits=19, decimal_places=2, min_value=0.00)
     discount = serializers.FloatField(default=0, required=False, min_value=0, max_value=100)
 
     class Meta:

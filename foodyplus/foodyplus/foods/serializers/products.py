@@ -15,7 +15,7 @@ class ProductModelSerializer(serializers.ModelSerializer):
     name = serializers.CharField()
     cost = serializers.DecimalField(max_digits=19, decimal_places=2, min_value=0.00)
     price = serializers.DecimalField(max_digits=19, decimal_places=2, min_value=0.00)
-    stock = serializers.IntegerField(min_value=0, default=0)
+    stock = serializers.DecimalField(max_digits=19, decimal_places=2, min_value=0.00)
 
     class Meta:
         """Meta class"""
