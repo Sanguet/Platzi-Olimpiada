@@ -80,6 +80,7 @@ class RecipeModelSerializer(serializers.ModelSerializer):
         instance.picture = data.get('picture', instance.picture)
         instance.country = data.get('country', instance.country)
         instance.total_time = data.get('total_time', instance.total_time)
+        instance.price = data.get('price', instance.price)
         instance.likes = data.get('likes', instance.likes)
         instance.portions = data.get('portions', instance.portions)
         instance.description = data.get('description', instance.description)
